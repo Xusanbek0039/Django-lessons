@@ -6,4 +6,3 @@ class SimpleMiddleware:
         response = self.get_response(request)
         print(f"AFTER GETTING RESPONSE")
         return response
-    
