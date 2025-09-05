@@ -77,7 +77,6 @@ class ResgiterTestCase(TestCase):
                 "password": "0071"
             }
         )
-        
         user_count = User.objects.count()
         form = response.context['form']
         self.assertFormError(form, "username", "A user with that username already exists.")
