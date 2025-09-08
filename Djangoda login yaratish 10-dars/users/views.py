@@ -5,6 +5,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 
 
+
+
+
 class RegisterView(View):
     def get(self, request):
         form = UserCreateForm()
