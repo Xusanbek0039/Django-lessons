@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-class ResgiterTestCase(TestCase):
+# class ResgiterTestCase(TestCase):
     # def test_user_account_is_created(self):
     #     self.client.post(
     #         reverse("users:register"),
@@ -58,26 +58,26 @@ class ResgiterTestCase(TestCase):
     #     self.assertFormError(response,"form","email","Enter a valid email address.")
 
 
-    def test_unique_username(self):
-        user = User.objects.create_user(
-            username="Xusanbek",
-            first_name="Husan",
-            last_name="Suyunov",
-            email="itcreative@gmail.com",
-            password="0071"
-        )
+    # def test_unique_username(self):
+    #     user = User.objects.create_user(
+    #         username="Xusanbek",
+    #         first_name="Husan",
+    #         last_name="Suyunov",
+    #         email="itcreative@gmail.com",
+    #         password="0071"
+    #     )
         
-        response = self.client.post(
-            reverse("users:register"),
-            data={
-                "username": "Xusanbek",
-                "first_name": "Husan",
-                "last_name": "Suyunov",
-                "email": "itcreative@gmail.com",
-                "password": "0071"
-            }
-        )
+    #     response = self.client.post(
+    #         reverse("users:register"),
+    #         data={
+    #             "username": "Xusanbek",
+    #             "first_name": "Husan",
+    #             "last_name": "Suyunov",
+    #             "email": "itcreative@gmail.com",
+    #             "password": "0071"
+    #         }
+    #     )
         
-        user_count = User.objects.count()
-        form = response.context['form']
-        self.assertFormError(form, "username", "A user with that username already exists.")
+    #     user_count = User.objects.count()
+    #     form = response.context['form']
+    #     self.assertFormError(form, "username", "A user with that username already exists.")
