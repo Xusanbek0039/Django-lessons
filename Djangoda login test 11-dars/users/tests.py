@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from django.contrib.auth import get_user
 
 # class ResgiterTestCase(TestCase):
     # def test_user_account_is_created(self):
@@ -81,3 +81,26 @@ from django.urls import reverse
     #     user_count = User.objects.count()
     #     form = response.context['form']
     #     self.assertFormError(form, "username", "A user with that username already exists.")
+
+
+
+
+
+class LoginTestCase(TestCase):
+    def test_succesful_login(self):
+        db_user = User.objects.create(
+            username="Xusanbek",
+            first_name="Husan"
+            )
+        db_user.set_password("0071")
+        db_user.save()
+
+        self.client.post(
+            reverse("users:login"),
+            data={
+                "username":"Xusanbek",
+                "password":"0071"
+            }
+        )
+        user = get_user(self.client)
+        self.assertTrue(user.is_authenticated) 
