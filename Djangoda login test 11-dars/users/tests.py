@@ -104,3 +104,23 @@ class LoginTestCase(TestCase):
         )
         user = get_user(self.client)
         self.assertTrue(user.is_authenticated) 
+
+
+
+    def test_unsuccesful_login(self):
+        db_user = User.objects.create(
+            username="Xusanbek",
+            first_name="Husan"
+            )
+        db_user.set_password("0071")
+        db_user.save()
+
+        self.client.post(
+            reverse("users:login"),
+            data={
+                "username":"Xusanbek",
+                "password":"0072"
+            }
+        )
+        user = get_user(self.client)
+        self.assertFalse(user.is_authenticated)
