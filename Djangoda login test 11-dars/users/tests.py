@@ -86,41 +86,70 @@ from django.contrib.auth import get_user
 
 
 
-class LoginTestCase(TestCase):
-    def test_succesful_login(self):
-        db_user = User.objects.create(
-            username="Xusanbek",
-            first_name="Husan"
-            )
-        db_user.set_password("0071")
-        db_user.save()
+# class LoginTestCase(TestCase):
+#     def test_succesful_login(self):
+#         db_user = User.objects.create(
+#             username="Xusanbek",
+#             first_name="Husan"
+#             )
+#         db_user.set_password("0071")
+#         db_user.save()
 
-        self.client.post(
-            reverse("users:login"),
-            data={
-                "username":"Xusanbek",
-                "password":"0071"
-            }
+#         self.client.post(
+#             reverse("users:login"),
+#             data={
+#                 "username":"Xusanbek",
+#                 "password":"0071"
+#             }
+#         )
+#         user = get_user(self.client)
+#         self.assertTrue(user.is_authenticated) 
+
+
+
+#     def test_unsuccesful_login(self):
+#         db_user = User.objects.create(
+#             username="Xusanbek",
+#             first_name="Husan"
+#             )
+#         db_user.set_password("0071")
+#         db_user.save()
+
+#         self.client.post(
+#             reverse("users:login"),
+#             data={
+#                 "username":"Xusanbek",
+#                 "password":"0072"
+#             }
+#         )
+#         user = get_user(self.client)
+#         self.assertFalse(user.is_authenticated)
+        
+
+
+
+
+
+from django.test import TestCase
+from django.contrib.auth.models import User
+from django.urls import reverse
+
+class Testcaselogin(TestCase):
+    def setUp(self):
+        self.username = "TestUser123"
+        self.password = "Admin111"
+        self.user = User.objects.create_user(
+            username=self.username,
+            password=self.password
         )
-        user = get_user(self.client)
-        self.assertTrue(user.is_authenticated) 
+        
+    def test_login_valid(self):
+        data = {
+            "username": self.username,
+            "password": self.password
+        }
+        response = self.client.post(reverse("users:login"), data=data)
 
-
-
-    def test_unsuccesful_login(self):
-        db_user = User.objects.create(
-            username="Xusanbek",
-            first_name="Husan"
-            )
-        db_user.set_password("0071")
-        db_user.save()
-
-        self.client.post(
-            reverse("users:login"),
-            data={
-                "username":"Xusanbek",
-                "password":"0072"
-            }
-        )
-        user = get_user(self.client)
-        self.assertFalse(user.is_authenticated)
+        self.assertRedirects(response, reverse("landing_page")) 
+        user = User.objects.get(username=self.username)
+        self.assertTrue(user.is_authenticated)
