@@ -26,7 +26,9 @@ class BookTestCase(TestCase):
 
     def test_detail_page(self):
         book = Book.objects.create(title="book3",description="Kitob haqida",isbn="567653")
-        url = reverse("books:detail") 
+        url = reverse("books:detail", kwargs={"id":book.id}) 
         response = self.client.get(url)  
 
-# assertContains ni qo'shish 
+        self.assertContains(response, book.title)
+        self.assertContains(response, book.description)
+
