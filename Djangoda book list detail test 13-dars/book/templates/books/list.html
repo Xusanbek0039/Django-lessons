@@ -15,12 +15,14 @@
 
 <body>
     <h1>Kitoblar ro'yxati</h1>
+    {% if books %}
     <ul>
         {% for book in books %}
         <li>
-            <a href="{% url 'detail' book.id %}">{{ book.title }} {{ book.author }}</a>
+            <a href="{% url 'books:detail' book.id %}">{{ book.title }} {{ book.author }}</a>
         </li><br> {% endfor %}
     </ul>
+    {% else %} No books found. {% endif %}
 </body>
 
 </html>
