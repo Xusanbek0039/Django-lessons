@@ -28,5 +28,5 @@ class BookTestCase(TestCase):
         book = Book.objects.create(title="book3",description="Kitob haqida",isbn="567653")
         url = reverse("books:detail") 
         response = self.client.get(url)  
-        
 
+# assertContains ni qo'shish 
