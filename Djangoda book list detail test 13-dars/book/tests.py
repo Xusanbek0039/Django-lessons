@@ -11,6 +11,8 @@ class BookTestCase(TestCase):
 
         self.assertContains(response, "No books found.")  # Javobni tekshirish
 
+
+
     def test_books_list(self):
         Book.objects.create(title="book1",description="Kitob haqida",isbn="123456")
         Book.objects.create(title="book2",description="Kitob haqida",isbn="356445")
