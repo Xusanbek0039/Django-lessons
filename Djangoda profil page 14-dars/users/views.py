@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views import View 
+from django.views import View
 from users.forms import UserCreateForm, UserLoginForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
-
-
-
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class RegisterView(View):
     def get(self, request):
@@ -19,9 +16,6 @@ class RegisterView(View):
             form.save()
             return redirect("users:login")
         return render(request, "users/register.html", {"form": form})
-
-
-
 
 class LoginView(View):
     def get(self, request):
@@ -36,3 +30,7 @@ class LoginView(View):
             return redirect("landing_page")
         else:
             return render(request, "users/login.html", {"login_form": login_form})
+        
+class ProfilView(LoginRequiredMixin,View):
+    def get(self,request):
+        return render(request,"users/profil.html", {"user:request":"user"})
