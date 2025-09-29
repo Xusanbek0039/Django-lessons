@@ -55,7 +55,7 @@ def profile_update(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('users:profil')  # endi to'g'ri URL name ishlatiladi
+            return redirect('users:profile')  # endi to'g'ri URL name ishlatiladi
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)

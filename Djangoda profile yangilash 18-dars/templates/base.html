@@ -41,6 +41,8 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'users:profile' %}">Shaxsiy hisob</a></li>
+            <li><a class="dropdown-item" href="{% url 'users:profile_update' %}">Hisob taxrirlash</a></li>
+
 
             {% if request.user.is_authenticated %}
             <li><a class="dropdown-item" href="{% url 'users:logout' %}">Chiqish</a></li>

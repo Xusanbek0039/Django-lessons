@@ -26,14 +26,12 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import Profile  # Profil modeli ham kerak bo'ladi
 
-# Foydalanuvchining username va emailini yangilash uchun
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
 
-# Profilni yangilash uchun
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['bio', 'avatar']
+        fields = ['avatar',"first_name", "last_name",]
