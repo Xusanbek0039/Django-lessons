@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+
+
 class RegisterView(View):
     def get(self, request):
         form = UserCreateForm()
