@@ -1,5 +1,6 @@
 from django import forms
 from .models import CustomUser
+from .models import Profile
 
 class UserCreateForm(forms.ModelForm):
     email = forms.EmailField(required=True)  # <-- email validatsiya bo‘ladi
@@ -19,3 +20,18 @@ class UserCreateForm(forms.ModelForm):
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=150)
     password = forms.CharField(max_length=128)
+
+
+from django import forms
+from django.contrib.auth.models import User
+from .models import Profile  # Profil modeli ham kerak bo'ladi
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['avatar',"first_name", "last_name",]
