@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    profile_picture = models.ImageField(default="media-faylar/default.png")
+    profile_picture = models.ImageField(default="default.png")
 
 
 class Profile(models.Model):
