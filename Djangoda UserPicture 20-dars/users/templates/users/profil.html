@@ -5,16 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile page</title>
+    
 </head>
 
 <body>
     <h1>{{ user.username }}ning saxifasi</h1>
-
+    <img style="width: 200px; border-radius: 50%; height: 200px;" src="{{ user.profile_picture.url }}" alt="Profle image">
     <p>Username: {{ user.username }}</p>
     <p>Fist name: {{ user.first_name }}</p>
     <p>Last name: {{ user.last_name }}</p>
     <p>Email: {{ user.email }}</p>
 
+
+    <a href="{% url 'users:profile_update' %}">taxrirlash</a>
 </body>
 
 </html>

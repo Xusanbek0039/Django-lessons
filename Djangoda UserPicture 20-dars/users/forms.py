@@ -23,15 +23,15 @@ class UserLoginForm(forms.Form):
 
 
 from django import forms
-from django.contrib.auth.models import User
+from .models import CustomUser
 from .models import Profile  # Profil modeli ham kerak bo'ladi
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'email']
+        model = CustomUser
+        fields = ['username',"last_name", 'email',"first_name","profile_picture"]
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
-        model = Profile
-        fields = ['avatar',"first_name", "last_name",]
+        model = CustomUser
+        fields = ['username',"last_name", 'email',"first_name","profile_picture"]

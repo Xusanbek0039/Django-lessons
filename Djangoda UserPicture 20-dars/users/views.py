@@ -50,6 +50,25 @@ class LogoutView(LoginRequiredMixin,View):
 
 
 
+class ProfileUpdateView(LoginRequiredMixin, View):
+    def get(self,request):
+        user_update_form = UserUpdateForm(instance=request.user)
+        return render(request,'users/profile_update.html', {"form":user_update_form})
+    
+    def post(self,request):
+        user_update_form = UserUpdateForm(
+            instance=request.user,
+            data=request.POST,
+            files=request.FILES
+        )
+        if user_update_form.is_valid():
+            user_update_form.save()
+            messages.success(request,"Prodile muvafaqiyatli yangiandi!")
+
+            return redirect("users:profile")
+        
+        return render(request,'users/profile_update.html', {"form":user_update_form})
+
 
 @login_required
 def profile_update(request):
