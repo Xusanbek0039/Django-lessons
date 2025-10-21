@@ -1,6 +1,9 @@
 from django import forms
 from .models import CustomUser
 from .models import Profile
+from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column, Submit
 
 class UserCreateForm(forms.ModelForm):
     email = forms.EmailField(required=True)  # <-- email validatsiya bo‘ladi
@@ -8,7 +11,7 @@ class UserCreateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ("username", "first_name", "last_name", "email", "password")
-
+        
     def save(self, commit=True):
         user = super().save(commit=False)  # <-- bazaga yozmasdan obyektni olamiz
         user.set_password(self.cleaned_data["password"])  # <-- parolni hashlash
@@ -16,6 +19,7 @@ class UserCreateForm(forms.ModelForm):
             user.save()
         return user
 
+        
 
 class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=150)
@@ -35,3 +39,6 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['username',"last_name", 'email',"first_name","profile_picture"]
+
+
+
