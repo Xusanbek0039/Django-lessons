@@ -1,28 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitoblar</title>
-    <style>
-        a {
-            text-decoration: none;
-            color: blue;
-        }
-    </style>
+    <title>Kitoblar ro‘yxati</title>
 </head>
-
 <body>
-    <h1>Kitoblar ro'yxati</h1>
-    {% if page_obj %}
-    <ul>
-        {% for book in page_obj %}
-        <li>
-            <a href="{% url 'books:detail' book.id %}">{{ book.title }} {{ book.author }}</a>
-        </li><br> {% endfor %}
-    </ul>
-    {% else %} No books found. {% endif %}
-</body>
+    <h1>Kitoblar ro‘yxati</h1>
 
+    {% for book in page_obj %}
+        <div style="border:1px solid #ddd; margin:10px; padding:10px;">
+            <h2>{{ book.title }}</h2>
+            <p><strong>Muallif:</strong> {{ book.author }}</p>
+
+            {% if book.image %}
+                <img src="{{ book.image.url }}" alt="{{ book.title }}" width="150">
+            {% else %}
+                <p>📘 Rasm mavjud emas</p>
+            {% endif %}
+
+            <p>{{ book.description|truncatewords:20 }}</p>
+            <a href="{% url 'book_detail' book.id %}">Batafsil →</a>
+        </div>
+    {% endfor %}
+
+    <div style="margin-top:20px;">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">⬅ Oldingi</a>
+        {% endif %}
+
+        <span>Sahifa {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Keyingi ➡</a>
+        {% endif %}
+    </div>
+</body>
 </html>

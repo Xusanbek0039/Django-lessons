@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitob haqida </title>
+    <title>{{ book.title }}</title>
 </head>
-
 <body>
-    <h1>Ushbu kitob haqida ma'lumot</h1>
-    <p>{{ book.title}}</p>
-    <p>{{ book.description}}</p>
-</body>
+    <h1>{{ book.title }}</h1>
+    <p><strong>Muallif:</strong> {{ book.author }}</p>
 
+    {% if book.image %}
+        <img src="{{ book.image.url }}" alt="{{ book.title }}" width="250">
+    {% else %}
+        <p>📕 Rasm mavjud emas</p>
+    {% endif %}
+
+    <p>{{ book.description }}</p>
+
+    <a href="{% url 'book_list' %}">⬅ Orqaga qaytish</a>
+</body>
 </html>

@@ -7,7 +7,9 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     isbn = models.CharField(max_length=17)
-    
+    image = models.ImageField(upload_to='book_images/',null=True, blank=True)
+    def __str__(self):
+        return self.title  # 👈 shu yer muhim!
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
