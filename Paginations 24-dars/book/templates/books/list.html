@@ -15,9 +15,9 @@
 
 <body>
     <h1>Kitoblar ro'yxati</h1>
-    {% if books %}
+    {% if page_obj %}
     <ul>
-        {% for book in books %}
+        {% for book in page_obj %}
         <li>
             <a href="{% url 'books:detail' book.id %}">{{ book.title }} {{ book.author }}</a>
         </li><br> {% endfor %}

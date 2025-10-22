@@ -23,8 +23,10 @@ class BooksView(View):
     def get(self, request):
         books = Book.objects.all().order_by("id")
         peginator = Paginator(books, 2)
+        page_num = request.GET.get('page',1)
+        page_obj = peginator.get_page(page_num)
 
-        return render(request, 'books/list.html',{"books": books})
+        return render(request, 'books/list.html',{"page_obj": page_obj})
     
 
 
