@@ -98,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uz'
 
 TIME_ZONE = 'UTC'
 
@@ -122,3 +122,36 @@ MEDIA_ROOT = "media-faylar"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+
+
+
+
+
+# settings.py
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Books market admin page",
+    "site_header": "Admin saxifasi",
+    "site_brand": "Book app",
+    "welcome_sign": "Assalom alekum, admin...",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "custom_css": "admin/css/main.css",
+    "custom_js": "admin/js/main.js",
+    "icons": {
+        "book.Book": "fas fa-book",
+    },
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "cyborg",          # baza qoramtir
+    "dark_mode_theme": "cyborg",
+    "navbar": "navbar-dark",
+    "sidebar": "sidebar-dark-primary",
+    "brand_colour": "navbar-dark",
+}
