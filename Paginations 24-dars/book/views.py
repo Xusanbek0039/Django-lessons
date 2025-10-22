@@ -22,7 +22,7 @@ class BookDetailView(DetailView):
 class BooksView(View):
     def get(self, request):
         books = Book.objects.all().order_by("id")
-        peginator = Paginator(books, 2)
+        peginator = Paginator(books, 3)  # har bir sahifada 3 ta kitob
         page_num = request.GET.get('page',1)
         page_obj = peginator.get_page(page_num)
 

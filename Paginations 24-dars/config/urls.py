@@ -4,10 +4,12 @@ from .views import landing_page
 from django.conf import settings
 from django.conf.urls.static import static
 
+app_name = "config"
+
 urlpatterns = [
     path("", landing_page, name="landing_page"),
     path("users/", include("users.urls")),
-    path("books/", include("book.urls")),
+    path("books/", include("book.urls"),name="books"),
     path('admin/', admin.site.urls),
 
 ]

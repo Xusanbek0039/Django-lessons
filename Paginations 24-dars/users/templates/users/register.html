@@ -1,24 +1,48 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Register</title>
+{% extends 'base.html' %}
+{% load static %}
 
-  
-</head>
-<body>
-  <div class="card">
-    <h1>Ro‘yxatdan o‘tish</h1>
-    <p>Hisob yaratish uchun ma’lumotlaringizni kiriting</p>
+{% block title %}Ro‘yxatdan o‘tish{% endblock %}
 
-    <form action="{% url 'users:register' %}" method="post" novalidate>
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+  <div class="card shadow-lg p-4" style="max-width: 450px; width: 100%; border-radius: 20px;">
+    
+    <h3 class="text-center mb-3 text-primary fw-bold">
+      📝 Ro‘yxatdan o‘tish
+    </h3>
+    <p class="text-center text-muted mb-4">
+      Hisob yaratish uchun ma’lumotlaringizni kiriting
+    </p>
+
+    <form method="post" novalidate>
       {% csrf_token %}
+      
+      <!-- Forma maydonlari -->
+      {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger small">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
 
-      {{ form }}
-
-      <button class="btn" type="submit">Submit</button>
+      <div class="d-grid">
+        <button type="submit" class="btn btn-success btn-lg">
+          ✅ Ro‘yxatdan o‘tish
+        </button>
+      </div>
     </form>
+
+    <div class="text-center mt-3">
+      <p class="mb-1">Allaqachon hisobingiz bormi? 
+        <a href="{% url 'users:login' %}" class="text-decoration-none text-primary fw-semibold">
+          Kirish
+        </a>
+      </p>
+    </div>
+
   </div>
-</body>
-</html>
+</div>
+{% endblock %}
