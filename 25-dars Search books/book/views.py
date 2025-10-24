@@ -23,6 +23,9 @@ class BooksView(View):
     def get(self, request):
         books = Book.objects.all().order_by("id")
         peginator = Paginator(books, 3)  # har bir sahifada 3 ta kitob
+        search_query = request.GET.get("q")
+        if search_query:
+            books = books.filter(title__icontain=search_query )
         page_num = request.GET.get('page',1)
         page_obj = peginator.get_page(page_num)
 
