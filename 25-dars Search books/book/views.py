@@ -23,7 +23,7 @@ class BooksView(View):
     def get(self, request):
         books = Book.objects.all().order_by("id")
 
-        search_query = request.GET.get("q")
+        search_query = request.GET.get("search")
         if search_query:
             books = books.filter(title__icontains=search_query)
 
