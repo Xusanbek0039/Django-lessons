@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Bosh sahifa{% endblock %}
+
+{% block content %}
+<div class="bg-light" style="min-height: 90vh; display: flex; align-items: center; justify-content: center; background-image: linear-gradient(to right, #74ebd5, #ACB6E5);">
+  <div class="text-center bg-white p-5 rounded-4 shadow-lg" style="max-width: 500px; width: 100%;">
+    <h1 class="fw-bold mb-3 text-primary">📚 Kitoblar platformasiga xush kelibsiz!</h1>
+    <p class="text-muted mb-4">
+      Bu yerda siz dasturchilar uchun eng yaxshi kitoblarni topasiz, o‘qing va bilimlaringizni oshiring.
+    </p>
+
+    <div class="d-flex justify-content-center gap-3">
+      <a href="{% url 'users:login' %}" class="btn btn-primary btn-lg px-4">🔑 Login</a>
+      <a href="{% url 'users:register' %}" class="btn btn-outline-primary btn-lg px-4">📝 Register</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
