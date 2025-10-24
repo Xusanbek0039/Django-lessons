@@ -22,16 +22,21 @@ class BookDetailView(DetailView):
 class BooksView(View):
     def get(self, request):
         books = Book.objects.all().order_by("id")
-        peginator = Paginator(books, 3)  # har bir sahifada 3 ta kitob
+
         search_query = request.GET.get("q")
         if search_query:
-            books = books.filter(title__icontain=search_query )
-        page_num = request.GET.get('page',1)
-        page_obj = peginator.get_page(page_num)
+            books = books.filter(title__icontains=search_query)
 
-        return render(request, 'books/list.html',{"page_obj": page_obj})
-    
+        paginator = Paginator(books, 3)  # har bir sahifada 3 ta kitob
+        page_num = request.GET.get("page", 1)
+        page_obj = paginator.get_page(page_num)
 
+        context = {
+            "page_obj": page_obj,
+            "search_query": search_query, 
+        }
+
+        return render(request, "books/list.html", context)
 
 # class BookDetailView(View):
 #     def get(self,request,id):

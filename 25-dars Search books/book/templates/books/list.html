@@ -9,10 +9,16 @@
 <div class="row mb-3">
   <div class="col-4">
     <form method="get" class="d-flex">
-      <input type="text" placeholder="Izlash..." name="q" class="form-control me-2">
+      <input type="text" placeholder="Izlash..." name="q" value="{{ request.GET.q }}" class="form-control me-2">
       <button class="btn btn-success">Izlash</button>
     </form>
   </div>
+
+  <ul>
+    {% for book in books %}
+        <li>{{ book.title }}</li>
+    {% endfor %}
+</ul>
 
 <div class="container mt-5">
   <h1 class="text-center mb-4 text-primary fw-bold">📚 Kitoblar ro‘yxati</h1>
