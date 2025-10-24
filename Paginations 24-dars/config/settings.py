@@ -132,7 +132,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-# settings.py
 
 JAZZMIN_SETTINGS = {
     "site_title": "Books market admin page",
