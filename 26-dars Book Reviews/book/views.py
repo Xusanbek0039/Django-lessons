@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from book.models import Book
 from django.views.generic import ListView, DetailView
 
 from django.core.paginator import Paginator
-
+from .models import Book, Comment
+from .forms import CommentForm
 # CRUD 
 # class BooksView(ListView):
 #     template_name = 'books/list.html'
@@ -13,11 +14,38 @@ from django.core.paginator import Paginator
 
 
 
-class BookDetailView(DetailView):
-    template_name = 'books/detail.html'
-    pk_url_kwarg = "id"
-    model = Book
 
+
+class BookDetailView(View):
+    def get(self, request, id):
+        book = get_object_or_404(Book, id=id)
+        comments = book.comments.all().order_by('-created_at')
+        form = CommentForm()
+        return render(request, 'books/detail.html', {
+            'book': book,
+            'comments': comments,
+            'form': form
+        })
+
+    def post(self, request, id):
+        book = get_object_or_404(Book, id=id)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.book = book
+            if request.user.is_authenticated:
+                comment.name = request.user.username
+            else:
+                comment.name = "Anonim foydalanuvchi"
+            comment.save()
+            return redirect('book_detail', id=book.id)
+
+        comments = book.comments.all().order_by('-created_at')
+        return render(request, 'books/detail.html', {
+            'book': book,
+            'comments': comments,
+            'form': form
+        })
 
 class BooksView(View):
     def get(self, request):

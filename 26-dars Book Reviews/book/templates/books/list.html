@@ -7,13 +7,16 @@
 
 
 <div class="row mb-3">
-  <div class="col-4">
+  <div class="col-6">
     <form method="get" class="d-flex">
       <input type="text" placeholder="Izlash..." name="search" value="{{ request.GET.search }}" class="form-control me-2">
-      <button class="btn btn-success">Izlash</button>
+      <button class="btn btn-success me-2">Izlash</button>
+      {% if request.GET.search %}
+        <a href="{% url 'book_list' %}" class="btn btn-secondary">🔄 Tozalash</a>
+      {% endif %}
     </form>
   </div>
-
+</div>
   <ul>
     {% for book in books %}
         <li>{{ book.title }}</li>
