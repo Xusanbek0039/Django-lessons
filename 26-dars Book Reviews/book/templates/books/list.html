@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Kitoblar ro‘yxati{% endblock %}
+
+{% block content %}
+
+
+<div class="row mb-3">
+  <div class="col-4">
+    <form method="get" class="d-flex">
+      <input type="text" placeholder="Izlash..." name="search" value="{{ request.GET.search }}" class="form-control me-2">
+      <button class="btn btn-success">Izlash</button>
+    </form>
+  </div>
+
+  <ul>
+    {% for book in books %}
+        <li>{{ book.title }}</li>
+    {% endfor %}
+</ul>
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4 text-primary fw-bold">📚 Kitoblar ro‘yxati</h1>
+
+  <div class="row">
+    {% for book in page_obj %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          {% if book.image %}
+            <img src="{{ book.image.url }}" class="card-img-top" alt="{{ book.title }}" style="height: 250px; object-fit: cover;">
+          {% else %}
+            <div class="d-flex align-items-center justify-content-center bg-light" style="height: 250px;">
+              <span class="text-muted">📘 Rasm mavjud emas</span>
+            </div>
+          {% endif %}
+          
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-dark fw-bold">{{ book.title }}</h5>
+            <p class="text-muted mb-1"><strong>Muallif:</strong> {{ book.author }}</p>
+            <p class="card-text mt-2 flex-grow-1">{{ book.description|truncatewords:20 }}</p>
+            <a href="{% url 'book_detail' book.id %}" class="btn btn-primary w-100 mt-auto">Batafsil →</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-center text-muted">
+        <p>😢 Hozircha kitoblar mavjud emas.</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-center align-items-center mt-4">
+    <nav>
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">⬅ Oldingi</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">⬅ Oldingi</span></li>
+        {% endif %}
+
+        <li class="page-item disabled mx-2">
+          <span class="page-link">
+            Sahifa {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+          </span>
+        </li>
+
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Keyingi ➡</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">Keyingi ➡</span></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</div>
+{% endblock %}
