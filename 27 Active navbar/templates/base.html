@@ -26,10 +26,18 @@
       .navbar-brand, .nav-link {
         color: white !important;
         font-weight: 500;
+        transition: color 0.2s ease;
       }
 
       .navbar-brand:hover, .nav-link:hover {
         color: #ffc107 !important;
+      }
+
+      /* 🔥 Active link style */
+      .nav-link.active {
+        color: #ffc107 !important;
+        font-weight: 700;
+        text-decoration: underline;
       }
 
       /* Container styling */
@@ -87,28 +95,42 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+            <!-- 🏠 Bosh sahifa -->
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'landing_page' %}">🏠 Bosh sahifa</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'landing_page' %}active{% endif %}" 
+                 href="{% url 'landing_page' %}">
+                 🏠 Bosh sahifa
+              </a>
             </li>
 
+            <!-- 📖 Kitoblar -->
             <li class="nav-item">
-              <a class="nav-link" href="/books">📖 Kitoblar</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'book_list' %}active{% endif %}" 
+                 href="{% url 'book_list' %}">
+                 📖 Kitoblar
+              </a>
             </li>
 
+            <!-- 👤 Hisob dropdown -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name in 'profile login register logout' %}active{% endif %}" 
+                 href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 👤 Hisob
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'users:profile' %}">Shaxsiy hisob</a></li>
-
                 {% if request.user.is_authenticated %}
+                  <li>
+                    <a class="dropdown-item {% if request.resolver_match.url_name == 'users:profile' %}active{% endif %}"
+                       href="{% url 'users:profile' %}">Shaxsiy hisob</a>
+                  </li>
                   <li><a class="dropdown-item text-danger" href="{% url 'users:logout' %}">Chiqish</a></li>
                 {% else %}
+                  <li><a class="dropdown-item {% if request.resolver_match.url_name == 'users:login' %}active{% endif %}"
+                         href="{% url 'users:login' %}">Kirish</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{% url 'users:login' %}">Kirish</a></li>
                   <li>
-                    <a class="dropdown-item" href="{% url 'users:register' %}">
+                    <a class="dropdown-item {% if request.resolver_match.url_name == 'users:register' %}active{% endif %}" 
+                       href="{% url 'users:register' %}">
                       <button class="btn btn-sm btn-primary w-100 mt-2">Ro‘yxatdan o‘tish</button>
                     </a>
                   </li>
@@ -142,7 +164,9 @@
       {% block content %}{% endblock %}
     </div>
 
-
+    <footer>
+      <p>© 2025 Kitoblar olami | <a href="#">Bog‘lanish</a></p>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script 
