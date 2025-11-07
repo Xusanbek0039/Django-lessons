@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }} profili{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg p-4 text-center" style="max-width: 450px; border-radius: 20px; background: #ffffff;">
+    
+    <!-- Profile image -->
+    <div class="mb-3">
+      {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profil rasmi" 
+             class="rounded-circle border border-3 border-primary shadow-sm"
+             style="width: 150px; height: 150px; object-fit: cover;">
+      {% else %}
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+             alt="Default profil rasmi" 
+             class="rounded-circle border border-3 border-secondary shadow-sm"
+             style="width: 150px; height: 150px; object-fit: cover;">
+      {% endif %}
+    </div>
+
+    <h3 class="fw-bold text-primary mb-1">{{ user.username }}</h3>
+    <p class="text-muted mb-3">📧 {{ user.email }}</p>
+
+    <hr>
+
+    <div class="text-start">
+      <p><strong>👤 Foydalanuvchi nomi:</strong> {{ user.username }}</p>
+      <p><strong>🧾 Ismi:</strong> {{ user.first_name|default:"–" }}</p>
+      <p><strong>🧾 Familiyasi:</strong> {{ user.last_name|default:"–" }}</p>
+    </div>
+
+    <div class="mt-4 d-grid gap-2">
+      <a href="{% url 'users:profile_update' %}" class="btn btn-outline-primary">
+        ✏️ Ma’lumotni tahrirlash
+      </a>
+      <a href="{% url 'users:logout' %}" class="btn btn-outline-danger">
+        🚪 Chiqish
+      </a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
