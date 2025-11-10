@@ -26,10 +26,18 @@
       .navbar-brand, .nav-link {
         color: white !important;
         font-weight: 500;
+        transition: color 0.3s ease;
       }
 
       .navbar-brand:hover, .nav-link:hover {
         color: #ffc107 !important;
+      }
+
+      /* ACTIVE link styling */
+      .nav-link.active {
+        color: #ffc107 !important;
+        font-weight: 600;
+        border-bottom: 2px solid #ffc107;
       }
 
       /* Container styling */
@@ -87,16 +95,22 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+            <!-- Bosh sahifa -->
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'landing_page' %}">🏠 Bosh sahifa</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'landing_page' %}active{% endif %}" 
+                 href="{% url 'landing_page' %}">🏠 Bosh sahifa</a>
             </li>
 
+            <!-- Kitoblar -->
             <li class="nav-item">
-              <a class="nav-link" href="/books">📖 Kitoblar</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'book_list' %}active{% endif %}" 
+                 href="{% url 'book_list' %}">📖 Kitoblar</a>
             </li>
 
+            <!-- Hisob -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name in 'profile login register logout' %}active{% endif %}" 
+                 href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 👤 Hisob
               </a>
               <ul class="dropdown-menu">
@@ -141,8 +155,6 @@
     <div class="container content-wrapper">
       {% block content %}{% endblock %}
     </div>
-
-
 
     <!-- Bootstrap JS -->
     <script 
