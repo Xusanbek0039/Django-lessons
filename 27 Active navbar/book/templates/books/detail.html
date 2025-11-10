@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="row g-0">
+      <!-- Rasm -->
+      <div class="col-md-4">
+        {% if book.image %}
+          <img src="{{ book.image.url }}" class="img-fluid rounded-start" alt="{{ book.title }}" style="height: 100%; object-fit: cover;">
+        {% else %}
+          <div class="d-flex align-items-center justify-content-center bg-light h-100">
+            <span class="text-muted">📕 Rasm mavjud emas</span>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Ma'lumotlar -->
+      <div class="col-md-8">
+        <div class="card-body">
+          <h2 class="card-title text-primary fw-bold">{{ book.title }}</h2>
+          <p class="text-muted mb-2"><strong>Muallif:</strong> {{ book.author }}</p>
+          <hr>
+          <p class="card-text" style="font-size: 1.1rem; line-height: 1.7;">
+            {{ book.description }}
+          </p>
+
+          <div class="mt-4">
+            <a href="{% url 'book_list' %}" class="btn btn-outline-primary">
+              ⬅ Orqaga qaytish
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Izohlar -->
+  <div class="mt-5">
+    <h3 class="text-primary mb-3">💬 Izohlar</h3>
+
+    {% if comments %}
+      {% for comment in comments %}
+        <div class="card mb-3 border-0 shadow-sm">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">
+              {{ comment.name }} — <small>{{ comment.created_at|date:"d-m-Y H:i" }}</small>
+            </h6>
+            <p class="card-text">{{ comment.text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-muted">Hozircha izoh yo‘q 😢</p>
+    {% endif %}
+  </div>
+
+  <!-- Izoh qo‘shish -->
+  <div class="mt-4">
+    <h4 class="text-success mb-3">📝 Izoh qoldirish</h4>
+    <form method="post" class="p-3 bg-light rounded shadow-sm">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success mt-2">Yuborish</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
