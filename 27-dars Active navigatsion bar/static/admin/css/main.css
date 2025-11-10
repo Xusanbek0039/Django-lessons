@@ -1,0 +1,113 @@
+:root{
+  --hack-bg:#000;
+  --hack-green:#00ff80;
+  --hack-dark:#001a0d;
+  --hack-border:#00ff8050;
+}
+
+html,body{
+  background:radial-gradient(circle at 20% 20%,var(--hack-dark),#000);
+  color:var(--hack-green)!important;
+  font-family:"Courier New",monospace!important;
+  letter-spacing:0.6px;
+}
+
+.navbar,.navbar-brand{
+  background:linear-gradient(90deg,#001a0d,#000);
+  color:var(--hack-green)!important;
+  text-shadow:0 0 8px var(--hack-green);
+  border-bottom:1px solid var(--hack-border);
+}
+
+.sidebar,.main-sidebar{
+  background:linear-gradient(180deg,#000,#001107);
+  color:var(--hack-green)!important;
+  border-right:1px solid var(--hack-border);
+}
+
+.card,.content,.box,.card-body{
+  background:rgba(0,0,0,0.7);
+  border:1px solid var(--hack-border);
+  box-shadow:0 0 12px #00ff8040 inset;
+  color:var(--hack-green)!important;
+  border-radius:6px;
+}
+
+h1,h2,h3,h4,.model-title,.card-header{
+  color:var(--hack-green)!important;
+  text-shadow:0 0 6px #00ff40;
+}
+
+a,.nav-link,.dropdown-item{
+  color:var(--hack-green)!important;
+  transition:all 0.3s ease;
+}
+a:hover{
+  color:#aaffcc!important;
+  text-shadow:0 0 8px #00ffaa;
+}
+
+.table{
+  color:var(--hack-green)!important;
+  border-color:var(--hack-border)!important;
+}
+.table thead th{
+  background:rgba(0,255,128,0.05);
+  border-bottom:1px solid var(--hack-border);
+}
+.table tbody tr:hover{
+  background:rgba(0,255,128,0.05);
+  transition:0.2s;
+}
+
+.form-control,.search-form input{
+  background:rgba(0,0,0,0.6)!important;
+  border:1px solid var(--hack-border)!important;
+  color:var(--hack-green)!important;
+  border-radius:4px;
+  box-shadow:0 0 6px rgba(0,255,128,0.1) inset;
+}
+.form-control:focus{
+  box-shadow:0 0 12px rgba(0,255,128,0.4);
+  border-color:#00ffaa!important;
+}
+
+.btn{
+  background:linear-gradient(90deg,#003d20,#001a0d);
+  border:1px solid var(--hack-border);
+  color:var(--hack-green)!important;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  transition:0.2s;
+}
+.btn:hover{
+  background:#002d18;
+  box-shadow:0 0 10px #00ff80;
+}
+
+.navbar .user-tools img{
+  border:1px solid var(--hack-border);
+  border-radius:50%;
+  box-shadow:0 0 6px #00ff8060;
+}
+
+.field-box,.form-row{
+  border-left:3px solid var(--hack-border);
+  padding-left:10px;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:repeating-linear-gradient(transparent 0,rgba(0,255,128,0.02) 1px,transparent 2px);
+  pointer-events:none;
+  mix-blend-mode:overlay;
+  animation:scan 6s linear infinite;
+}
+
+@keyframes scan{
+  0%{opacity:0.4;transform:translateY(0);}
+  50%{opacity:0.6;transform:translateY(10px);}
+  100%{opacity:0.4;transform:translateY(0);}
+}
