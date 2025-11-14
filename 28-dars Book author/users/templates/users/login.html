@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kirish{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow-lg p-4" style="width: 400px; border-radius: 15px;">
+    
+    <h3 class="text-center mb-4 text-primary fw-bold">
+      🔐 Tizimga kirish
+    </h3>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      
+      <!-- Django login form -->
+      {{ login_form.non_field_errors }}
+      {% for field in login_form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label fw-semibold">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger small">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="d-grid mt-3">
+        <button type="submit" class="btn btn-primary">Kirish</button>
+      </div>
+
+      <div class="text-center mt-3">
+        <p class="mb-1">Hisobingiz yo‘qmi? 
+          <a href="{% url 'users:register' %}" class="text-decoration-none text-success fw-semibold">Ro‘yxatdan o‘ting</a>
+        </p>
+        <a href="#" class="text-decoration-none small text-muted">Parolni unutdingizmi?</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
